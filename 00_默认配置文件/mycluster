@@ -1,0 +1,25 @@
+#!/bin/bash
+#校验--参数的个数
+if [ $# -ne 1 ]
+	then
+		echo "输入的参数的个数不对!!!"
+		exit
+fi
+
+case $1 in
+"start")
+	#启动HDFS
+	ssh hadoop102 $HADOOP_HOME/sbin/start-dfs.sh
+	#启动YARN
+	ssh hadoop103 start-yarn.sh
+	;;
+"stop")
+	#关闭HDFS
+	ssh hadoop102 $HADOOP_HOME/sbin/stop-dfs.sh
+	#关闭YARN
+	ssh hadoop103 stop-yarn.sh
+	;;
+*)
+	echo "输入的参数内容不对！！！"
+	;;
+esac

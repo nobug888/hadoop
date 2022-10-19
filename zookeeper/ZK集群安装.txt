@@ -1,0 +1,60 @@
+
+1.在本地模式基础上修改
+
+2.先把所有服务停掉
+	zkServer.sh stop
+	
+3.
+	①删除/opt/module/zookeeper-3.5.7/zkData中的数据
+	②删除/tmp/*
+	
+4.修改/opt/module/zookeeper-3.5.7/conf/zoo.cfg
+	添加如下内容
+	server.2=hadoop102:2888:3888
+	server.3=hadoop103:2888:3888
+	server.4=hadoop104:2888:3888
+	
+	说明：
+	server.zk节点id = 节点的ip地址 ：zk通信端口号 ：zk选举leader的端口号
+	
+5.在/opt/module/zookeeper-3.5.7/zkData中创建myid
+	touch myid
+	在myid中写入对应的id值（hadoop102是2，hadoop103是3，hadoop104是4）
+	
+
+6.分发
+	xsync /opt/module/zookeeper-3.5.7
+	
+7.修改hadoop103和hadoop104中的myid的值
+	在myid中写入对应的id值（hadoop102是2，hadoop103是3，hadoop104是4）
+
+8.分发hadoop102的环境变量
+	 sudo scp -r /etc/profile.d/my_env.sh hadoop103:/etc/profile.d/my_env.sh
+	 sudo scp -r /etc/profile.d/my_env.sh hadoop104:/etc/profile.d/my_env.sh
+	 
+9.让hadoop103和hadoop104环境变量生效
+	①重新连接
+	②source /etc/profile.d/my_env.sh
+	
+10.启动zk集群
+	分别在hadoop102,hadoop103和hadoop104中执行zkServer.sh start
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

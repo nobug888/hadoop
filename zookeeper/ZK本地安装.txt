@@ -1,0 +1,65 @@
+
+1.上传
+
+2.解压
+	在/opt/software目录下
+	tar -zxvf apache-zookeeper-3.5.7-bin.tar.gz -C /opt/module/
+	
+	在/opt/module目录下--改名
+	mv apache-zookeeper-3.5.7-bin zookeeper-3.5.7
+
+3.配置文件
+	在/opt/module/zookeeper-3.5.7/conf目录下 --- 改名字
+	mv zoo_sample.cfg zoo.cfg
+	
+	编辑zoo.cfg
+	vim zoo.cfg
+	
+	修改如下内容
+	dataDir = /opt/module/zookeeper-3.5.7/zkData
+	
+	在/opt/module/zookeeper-3.5.7目录下创建zkData目录
+	mkdir zkData
+
+4.环境变量
+	修改环境变量的文件
+	sudo vim /etc/profile.d/my_env.sh
+	
+	内容如下：
+#定义ZOOKEEPER_HOME
+export ZOOKEEPER_HOME=/opt/module/zookeeper-3.5.7
+#将原Path中的值和ZOOKEEPER_HOME拼接的值重新复制给PATH
+export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin;$HADOOP_HOME/sbin:$ZOOKEEPER_HOME/bin
+	
+	让环境变量生效
+	①重新连接
+	②source /etc/profile.d/my_env.sh
+
+
+5.启动服务
+	zkServer.sh start|stop|status
+	
+6.启动客户端
+	zkCli.sh
+	
+7.退出客户端
+	quit
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
